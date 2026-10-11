@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grow Rewards: Welcome Bonus & Referral APY Simulator 🌱📈</title>
+  <meta name="description" content="Interactive rewards calculator simulating Grow First Trade Welcome Rewards across 6 asset classes and multi-tier invite bonuses.">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --grow-green: #10B981;
+      --grow-light-green: #34D399;
+      --accent: #38bdf8;
+      --gold: #F59E0B;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.18) 0%, rgba(9, 13, 22, 0) 100%);
+      padding: 2.5rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--grow-light-green);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #ffffff 0%, var(--grow-light-green) 50%, #6ee7b7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--grow-green) 0%, #059669 100%);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--card-bg);
+      color: var(--grow-light-green);
+      border: 1px solid var(--grow-green);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 880px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    input, select {
+      width: 100%;
+      background: #0b111e;
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--grow-green);
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .stat-box {
+      background: #0b111e;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .stat-lbl {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .stat-val {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--grow-light-green);
+      margin-top: 0.25rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--grow-light-green);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">Superteam Earn • Grow Rewards Challenge ($500 USDG)</div>
+    <h1>Grow Rewards: Welcome Bonus &amp; Referral APY Simulator 🌱📈</h1>
+    <p class="subtitle">Calculate your First Trade Welcome Reward across global equities, crypto &amp; gold, model 7-day trade unlock horizons, and project recurring invite earnings.</p>
+    <div class="btn-group">
+      <a href="https://github.com/liutingqiu/grow-rewards-simulator-kit" target="_blank" class="btn btn-primary">
+        GitHub Source Code
+      </a>
+      <a href="https://superteam.fun/earn/listing/grow-rewards-make-your-first-move" target="_blank" class="btn btn-secondary">
+        Bounty Details ($500 USDG)
+      </a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="grid">
+      <!-- Input Card -->
+      <div class="card">
+        <div class="card-title">⚙️ Simulator Parameters</div>
+        
+        <div class="form-group">
+          <label for="asset">Choose Your Welcome Reward Asset (6 Choices):</label>
+          <select id="asset">
+            <option value="NVDA">NVIDIA (NVDA) — $25 Baseline Bonus</option>
+            <option value="SOL" selected>Solana (SOL) — $25 Baseline Bonus</option>
+            <option value="BTC">Bitcoin (BTC) — $20 Baseline Bonus</option>
+            <option value="TSLA">Tesla (TSLA) — $20 Baseline Bonus</option>
+            <option value="AAPL">Apple (AAPL) — $15 Baseline Bonus</option>
+            <option value="GOLD">Physical Gold (GOLD) — $10 Baseline Bonus</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="invest">Qualifying First Investment ($ USD):</label>
+          <input type="number" id="invest" value="100" min="10" step="10">
+        </div>
+
+        <div class="form-group">
+          <label for="invites">Number of Friends Invited via Unique Link:</label>
+          <input type="number" id="invites" value="3" min="0" step="1">
+        </div>
+
+        <div class="form-group">
+          <label for="referralBonus">Estimated Reward Per Friend ($ USD):</label>
+          <input type="number" id="referralBonus" value="20" min="5" step="5">
+        </div>
+      </div>
+
+      <!-- Output Card -->
+      <div class="card">
+        <div class="card-title">📊 Simulated Portfolio Return</div>
+        
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-lbl">Welcome Bonus</div>
+            <div class="stat-val" id="welcomeVal">$25.00</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-lbl">Referral Earnings</div>
+            <div class="stat-val" id="referralVal">$60.00</div>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-lbl">Total Portfolio Value</div>
+            <div class="stat-val" id="totalVal" style="color: #fff;">$185.00</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-lbl">Effective Initial APY</div>
+            <div class="stat-val" id="apyVal" style="color: var(--gold);">4,432%</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding: 1rem; background: #0b111e; border: 1px solid var(--card-border); border-radius: 8px; font-size: 0.85rem; color: #cbd5e1;">
+          <p><strong>🔒 Maturation &amp; Tradability Rules:</strong></p>
+          <p style="margin-top: 0.25rem;">• Welcome rewards are reserved instantly upon account creation.</p>
+          <p>• Unlocked as fully tradable exactly <strong>7 days</strong> after completing the qualifying investment.</p>
+          <p>• Invite rewards credit to your portfolio immediately upon your friend's 7-day trade unlock.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Submitted to the <strong>Grow Rewards: Make Your First Move</strong> Bounty on Superteam Earn • $500 USDG Prize Pool</p>
+    <p style="margin-top: 0.25rem;">Repository: <a href="https://github.com/liutingqiu/grow-rewards-simulator-kit" target="_blank">github.com/liutingqiu/grow-rewards-simulator-kit</a></p>
+  </footer>
+
+  <script>
+    const ASSETS = {
+      AAPL: 15,
+      NVDA: 25,
+      TSLA: 20,
+      BTC: 20,
+      SOL: 25,
+      GOLD: 10
+    };
+
+    function recalculate() {
+      const asset = document.getElementById('asset').value;
+      const invest = parseFloat(document.getElementById('invest').value) || 100;
+      const invites = parseInt(document.getElementById('invites').value) || 0;
+      const bonusPerInvite = parseFloat(document.getElementById('referralBonus').value) || 20;
+
+      const welcome = ASSETS[asset] || 25;
+      const totalReferral = invites * bonusPerInvite;
+      const total = invest + welcome + totalReferral;
+      const instantPct = ((welcome + totalReferral) / invest) * 100;
+      const apy = Math.round(instantPct * (365 / 7));
+
+      document.getElementById('welcomeVal').innerText = `$${welcome.toFixed(2)}`;
+      document.getElementById('referralVal').innerText = `$${totalReferral.toFixed(2)}`;
+      document.getElementById('totalVal').innerText = `$${total.toFixed(2)}`;
+      document.getElementById('apyVal').innerText = `${apy.toLocaleString()}%`;
+    }
+
+    document.getElementById('asset').addEventListener('change', recalculate);
+    document.getElementById('invest').addEventListener('input', recalculate);
+    document.getElementById('invites').addEventListener('input', recalculate);
+    document.getElementById('referralBonus').addEventListener('input', recalculate);
+    recalculate();
+  </script>
+</body>
+</html>
